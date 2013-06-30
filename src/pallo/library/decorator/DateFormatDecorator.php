@@ -17,7 +17,7 @@ class DateFormatDecorator implements Decorator {
 	 * Date format to apply
 	 * @var string
 	 */
-	protected $format;
+	protected $dateFormat;
 
 	/**
 	 * Sets the date format used to write the timestamp of the log item
@@ -26,7 +26,7 @@ class DateFormatDecorator implements Decorator {
 	 */
 	public function setDateFormat($dateFormat) {
 		if (!is_string($dateFormat) || $dateFormat == '') {
-			throw new Exception('Provided date format is empty');
+			throw new Exception('Could not set the date format: provided is not a string or empty');
 		}
 
 		$this->dateFormat = $dateFormat;
@@ -51,7 +51,13 @@ class DateFormatDecorator implements Decorator {
             return $value;
         }
 
-        return date($this->dateFormat, $value);
+        if ($this->dateFormat) {
+        	$dateFormat = $this->dateFormat;
+        } else {
+        	$dateFormat = self::DEFAULT_DATE_FORMAT;
+        }
+
+        return date($dateFormat, $value);
     }
 
 }

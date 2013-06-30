@@ -22,8 +22,8 @@ class StorageSizeDecoratorTest extends PHPUnit_Framework_TestCase {
     		array("0 bytes", 0),
     		array("765 bytes", 765),
     		array("1 Kb", 1024),
-    		array("5 Kb", 5000),
-    		array("1 Mb", 1000000),
+    		array("4.88 Kb", 5000),
+    		array("1 Mb", 1024000),
     	);
     }
 
