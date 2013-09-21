@@ -2,6 +2,8 @@
 
 namespace pallo\library\decorator;
 
+use pallo\library\decorator\exception\DecoratorException;
+
 /**
  * Decorate a UNIX timestamp into a human readable date
  */
@@ -26,7 +28,7 @@ class DateFormatDecorator implements Decorator {
 	 */
 	public function setDateFormat($dateFormat) {
 		if (!is_string($dateFormat) || $dateFormat == '') {
-			throw new Exception('Could not set the date format: provided is not a string or empty');
+			throw new DecoratorException('Could not set the date format: provided is not a string or empty');
 		}
 
 		$this->dateFormat = $dateFormat;
