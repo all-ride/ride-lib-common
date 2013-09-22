@@ -1,11 +1,17 @@
 {
     "name": "pallo/lib-common",
     "description": "Shared classes of the Pallo framework",
-    "version": "0.1.0",
+    "license": "MIT",
+    "version": "0.1.1",
     "authors": [
         {
             "name": "Joris Vandeweerd",
             "email": "joris@statik.be"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0": {
+            "pallo\\library\\": ["src/", "test/src/"]
+        }
+    }
 }
