@@ -31,6 +31,14 @@ class String {
     }
 
     /**
+     * Gets the string
+     * @return string
+     */
+    public function __toString() {
+    	return $this->string;
+    }
+
+    /**
      * Sets the string
      * @param string $string
      * @return null
