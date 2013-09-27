@@ -1,6 +1,6 @@
 <?php
 
-namespace uri\library;
+namespace pallo\library;
 
 use \ErrorException;
 
