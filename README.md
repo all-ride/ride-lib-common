@@ -7,6 +7,8 @@ Shared classes of the PHP Pallo framework.
 Decorators are used to convert values from one context into another.
 They should only act when the incoming value is handable.
 
+Check this code sample:
+
     <?php
     
     use pallo\library\decorator\DateFormatDecorator;
@@ -39,9 +41,12 @@ It handles class names like:
 * pallo\library\Autoloader: checked as _pallo/library/Autoloader/php_
 * pallo_library_Autoloader: checked as _pallo/library/Autoloader.php_ and _pallo_library_Autoloader.php_
 
+Check this code sample:
+
     <?php
     
     use pallo\library\Autoloader;
+    use pallo\library\String;
     
     require_once('path/to/pallo/library/Autoloader.php');
 
@@ -50,10 +55,15 @@ It handles class names like:
     $autoloader->addIncludePath('module2/src');
     $autoloader->addIncludePath('application/src'); // last added path will be checked first
     $autoloader->registerAutoloader();
+    
+    // go and use some classes
+    $string = new String();
 
 ## Error Handler
 
 The error handler of the Pallo framework simply converts handable errors into exceptions.
+
+Check this code sample:
 
     <?php
     
@@ -61,6 +71,12 @@ The error handler of the Pallo framework simply converts handable errors into ex
 
     $errorHandler = new ErrorHandler();
     $errorHandler->registerErrorHandler();
+    
+    try {
+        $tokens = explode(null);
+    } catch (Exception $e) {
+        // ErrorException thrown
+    }
     
 ## String
 
