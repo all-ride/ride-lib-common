@@ -28,8 +28,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testGenerate() {
-        $string = new String();
-        $string = $string->generate();
+        $string = String::generate();
 
         $this->assertNotNull($string);
         $this->assertTrue(!empty($string));
@@ -37,10 +36,8 @@ class StringTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testGenerateThrowsExceptionWhenLengthOfHaystackIsLessThenRequestedLength() {
-        $string = new String();
-
         try {
-            $string->generate(155);
+            String::generate(155);
         } catch (Exception $e) {
             return;
         }
@@ -49,10 +46,8 @@ class StringTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testGenerateThrowsExceptionWhenInvalidLengthProvided() {
-        $string = new String();
-
         try {
-            $string->generate('test');
+            String::generate('test');
         } catch (Exception $e) {
             return;
         }
@@ -61,10 +56,8 @@ class StringTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testGenerateThrowsExceptionWhenInvalidHaystackProvided() {
-        $string = new String();
-
         try {
-            $string->generate(8, $this);
+            String::generate(8, $this);
         } catch (Exception $e) {
             return;
         }
@@ -75,19 +68,22 @@ class StringTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider providerStartsWith
      */
-    public function testStartsWith($expected, $value, $start) {
+    public function testStartsWith($expected, $value, $start, $isCaseInsensitive) {
         $string = new String($value);
-        $result = $string->startsWith($start);
+        $result = $string->startsWith($start, $isCaseInsensitive);
 
         $this->assertEquals($expected, $result);
     }
 
     public function providerStartsWith() {
         return array(
-            array(true, 'This is Joe', 'This'),
-            array(false, 'Thi', 'this'),
-            array(false, 'This is Joe', array('no', 'yes')),
-            array(true, 'This is Joe', array('no', 'This')),
+            array(true, 'This is Joe', 'This', false),
+            array(false, 'This is joe', 'this', false),
+            array(false, 'Thi', 'this', false),
+            array(false, 'This is Joe', array('no', 'yes'), false),
+            array(true, 'This is Joe', array('no', 'This'), false),
+            array(false, 'This is Joe', array('no', 'this'), false),
+            array(true, 'This is Joe', array('no', 'this'), true),
         );
     }
 
@@ -104,8 +100,8 @@ class StringTest extends PHPUnit_Framework_TestCase {
     public function providerTruncate() {
         return array(
             array('', '', 9, '...', false),
-            array('This...', 'This is a test', 9, '...', false),
-            array('This is a test', 'This is a test', 15, '...', true),
+            array('Let\'s...', 'Let\'s create a stràngé STRING', 12, '...', false),
+            array('Let\'s cre...', 'Let\'s create a stràngé STRING', 12, '...', true),
         );
     }
 

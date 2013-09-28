@@ -59,14 +59,23 @@ class String {
      * @param string|array $start String to check as start or an array of strings
      * @return boolean True when the string starts with the provided start
      */
-    public function startsWith($start) {
+    public function startsWith($start, $isCaseInsensitive = false) {
         if (!is_array($start)) {
             $start = array($start);
         }
 
+        $string = $this->string;
+        if ($isCaseInsensitive) {
+        	$string = strtoupper($string);
+        }
+
         foreach ($start as $token) {
+	        if ($isCaseInsensitive) {
+	        	$token = strtoupper($token);
+	        }
+
             $startLength = strlen($token);
-            if (strncmp($this->string, $token, $startLength) == 0) {
+            if (strncmp($string, $token, $startLength) == 0) {
                 return true;
             }
         }
@@ -107,47 +116,6 @@ class String {
         }
 
         return substr($string, 0, $length) . $etc;
-    }
-
-    /**
-     * Generates a random string
-     * @param integer $length Number of characters to generate
-     * @param string $haystack String with the haystack to pick characters from
-     * @return string A random string
-     * @throws Exception when an invalid length is provided
-     * @throws Exception when an empty haystack is provided
-     * @throws Exception when the requested length is greater then the length
-     * of the haystack
-     */
-    public function generate($length = 8, $haystack = null) {
-        $string = '';
-        if ($haystack === null) {
-            $haystack = self::GENERATE_HAYSTACK;
-        }
-
-        if (!is_integer($length) || $length <= 0) {
-            throw new Exception('Could not generate a random string: invalid length provided');
-        }
-
-        if (!is_string($haystack) || !$haystack) {
-            throw new Exception('Could not generate a random string: empty or invalid haystack provided');
-        }
-
-        $haystackLength = strlen($haystack);
-        if ($length > $haystackLength) {
-            throw new Exception('Length cannot be greater than the length of the haystack. Length is ' . $length . ' and the length of the haystack is ' . $haystackLength);
-        }
-
-        $i = 0;
-        while ($i < $length) {
-            $index = mt_rand(0, $haystackLength - 1);
-
-            $string .= $haystack[$index];
-
-            $i++;
-        }
-
-        return $string;
     }
 
     /**
@@ -197,6 +165,47 @@ class String {
         $output = substr($output, 0, -1);
 
         return $output;
+    }
+
+    /**
+     * Generates a random string
+     * @param integer $length Number of characters to generate
+     * @param string $haystack String with the haystack to pick characters from
+     * @return string A random string
+     * @throws Exception when an invalid length is provided
+     * @throws Exception when an empty haystack is provided
+     * @throws Exception when the requested length is greater then the length
+     * of the haystack
+     */
+    public static function generate($length = 8, $haystack = null) {
+    	$string = '';
+    	if ($haystack === null) {
+    		$haystack = self::GENERATE_HAYSTACK;
+    	}
+
+    	if (!is_integer($length) || $length <= 0) {
+    		throw new Exception('Could not generate a random string: invalid length provided');
+    	}
+
+    	if (!is_string($haystack) || !$haystack) {
+    		throw new Exception('Could not generate a random string: empty or invalid haystack provided');
+    	}
+
+    	$haystackLength = strlen($haystack);
+    	if ($length > $haystackLength) {
+    		throw new Exception('Length cannot be greater than the length of the haystack. Length is ' . $length . ' and the length of the haystack is ' . $haystackLength);
+    	}
+
+    	$i = 0;
+    	while ($i < $length) {
+    		$index = mt_rand(0, $haystackLength - 1);
+
+    		$string .= $haystack[$index];
+
+    		$i++;
+    	}
+
+    	return $string;
     }
 
 }

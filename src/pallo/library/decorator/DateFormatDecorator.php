@@ -4,6 +4,8 @@ namespace pallo\library\decorator;
 
 use pallo\library\decorator\exception\DecoratorException;
 
+use \DateTime;
+
 /**
  * Decorate a UNIX timestamp into a human readable date
  */
@@ -50,6 +52,10 @@ class DateFormatDecorator implements Decorator {
      */
     public function decorate($value) {
         if (!is_numeric($value) || $value < 0) {
+	    	if ($value instanceof DateTime) {
+				return $value->format($this->dateFormat);
+	    	}
+
             return $value;
         }
 
