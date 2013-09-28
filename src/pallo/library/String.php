@@ -27,7 +27,7 @@ class String {
      * @return null
      */
     public function __construct($string = null) {
-    	$this->setString($string);
+        $this->setString($string);
     }
 
     /**
@@ -35,7 +35,7 @@ class String {
      * @return string
      */
     public function __toString() {
-    	return $this->string;
+        return $this->string;
     }
 
     /**
@@ -45,13 +45,13 @@ class String {
      * @throws Exception when a invalid string has been provided
      */
     public function setString($string) {
-    	if ($string === null) {
-    		$string = '';
-    	} elseif (!is_scalar($string) && !method_exists($string, '__toString')) {
-    		throw new Exception('Could not set the string: invalid string provided');
-    	}
+        if ($string === null) {
+            $string = '';
+        } elseif (!is_scalar($string) && !method_exists($string, '__toString')) {
+            throw new Exception('Could not set the string: invalid string provided');
+        }
 
-    	$this->string = (string) $string;
+        $this->string = (string) $string;
     }
 
     /**
@@ -157,11 +157,11 @@ class String {
      * @return string Safe string for file names and URLs
      */
     public function safeString($replacement = '-', $lower = true) {
-    	if (!$this->string) {
-    		return $this->string;
-    	}
+        if (!$this->string) {
+            return $this->string;
+        }
 
-    	$string = $this->string;
+        $string = $this->string;
 
         $encoding = mb_detect_encoding($string);
         if ($encoding != 'ASCII') {

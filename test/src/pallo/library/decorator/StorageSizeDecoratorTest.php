@@ -6,9 +6,9 @@ use \PHPUnit_Framework_TestCase;
 
 class StorageSizeDecoratorTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * @dataProvider providerDecorate
-	 */
+    /**
+     * @dataProvider providerDecorate
+     */
     public function testDecorate($expected, $value) {
         $decorator = new StorageSizeDecorator();
 
@@ -16,15 +16,15 @@ class StorageSizeDecoratorTest extends PHPUnit_Framework_TestCase {
     }
 
     public function providerDecorate() {
-    	return array(
-    		array("test", "test"),
-    		array(-500, -500),
-    		array("0 bytes", 0),
-    		array("765 bytes", 765),
-    		array("1 Kb", 1024),
-    		array("4.88 Kb", 5000),
-    		array("1 Mb", 1048576),
-    	);
+        return array(
+            array("test", "test"),
+            array(-500, -500),
+            array("0 bytes", 0),
+            array("765 bytes", 765),
+            array("1 Kb", 1024),
+            array("4.88 Kb", 5000),
+            array("1 Mb", 1048576),
+        );
     }
 
 }

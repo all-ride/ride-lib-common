@@ -12,15 +12,15 @@ class StorageSizeDecorator implements Decorator {
      * @var array
      */
     private $sizeUnits = array(
-    	' bytes',
-    	' Kb',
-    	' Mb',
-    	' Gb',
-    	' Tb',
-    	' Pb',
-    	' Eb',
-    	' Zb',
-    	' Yb',
+        ' bytes',
+        ' Kb',
+        ' Mb',
+        ' Gb',
+        ' Tb',
+        ' Pb',
+        ' Eb',
+        ' Zb',
+        ' Yb',
     );
 
     /**
