@@ -27,7 +27,7 @@ class String {
      * @return null
      */
     public function __construct($string = null) {
-    	$this->setString($string);
+        $this->setString($string);
     }
 
     /**
@@ -35,7 +35,7 @@ class String {
      * @return string
      */
     public function __toString() {
-    	return $this->string;
+        return $this->string;
     }
 
     /**
@@ -45,13 +45,13 @@ class String {
      * @throws Exception when a invalid string has been provided
      */
     public function setString($string) {
-    	if ($string === null) {
-    		$string = '';
-    	} elseif (!is_scalar($string) && !method_exists($string, '__toString')) {
-    		throw new Exception('Could not set the string: invalid string provided');
-    	}
+        if ($string === null) {
+            $string = '';
+        } elseif (!is_scalar($string) && !method_exists($string, '__toString')) {
+            throw new Exception('Could not set the string: invalid string provided');
+        }
 
-    	$this->string = (string) $string;
+        $this->string = (string) $string;
     }
 
     /**
@@ -59,14 +59,23 @@ class String {
      * @param string|array $start String to check as start or an array of strings
      * @return boolean True when the string starts with the provided start
      */
-    public function startsWith($start) {
+    public function startsWith($start, $isCaseInsensitive = false) {
         if (!is_array($start)) {
             $start = array($start);
         }
 
+        $string = $this->string;
+        if ($isCaseInsensitive) {
+        	$string = strtoupper($string);
+        }
+
         foreach ($start as $token) {
+	        if ($isCaseInsensitive) {
+	        	$token = strtoupper($token);
+	        }
+
             $startLength = strlen($token);
-            if (strncmp($this->string, $token, $startLength) == 0) {
+            if (strncmp($string, $token, $startLength) == 0) {
                 return true;
             }
         }
@@ -110,58 +119,17 @@ class String {
     }
 
     /**
-     * Generates a random string
-     * @param integer $length Number of characters to generate
-     * @param string $haystack String with the haystack to pick characters from
-     * @return string A random string
-     * @throws Exception when an invalid length is provided
-     * @throws Exception when an empty haystack is provided
-     * @throws Exception when the requested length is greater then the length
-     * of the haystack
-     */
-    public function generate($length = 8, $haystack = null) {
-        $string = '';
-        if ($haystack === null) {
-            $haystack = self::GENERATE_HAYSTACK;
-        }
-
-        if (!is_integer($length) || $length <= 0) {
-            throw new Exception('Could not generate a random string: invalid length provided');
-        }
-
-        if (!is_string($haystack) || !$haystack) {
-            throw new Exception('Could not generate a random string: empty or invalid haystack provided');
-        }
-
-        $haystackLength = strlen($haystack);
-        if ($length > $haystackLength) {
-            throw new Exception('Length cannot be greater than the length of the haystack. Length is ' . $length . ' and the length of the haystack is ' . $haystackLength);
-        }
-
-        $i = 0;
-        while ($i < $length) {
-            $index = mt_rand(0, $haystackLength - 1);
-
-            $string .= $haystack[$index];
-
-            $i++;
-        }
-
-        return $string;
-    }
-
-    /**
      * Gets a safe string for file name and URL usage
      * @param string $replacement Replacement string for all non alpha numeric characters
      * @param boolean $lower Set to false to skip strtolower
      * @return string Safe string for file names and URLs
      */
     public function safeString($replacement = '-', $lower = true) {
-    	if (!$this->string) {
-    		return $this->string;
-    	}
+        if (!$this->string) {
+            return $this->string;
+        }
 
-    	$string = $this->string;
+        $string = $this->string;
 
         $encoding = mb_detect_encoding($string);
         if ($encoding != 'ASCII') {
@@ -197,6 +165,47 @@ class String {
         $output = substr($output, 0, -1);
 
         return $output;
+    }
+
+    /**
+     * Generates a random string
+     * @param integer $length Number of characters to generate
+     * @param string $haystack String with the haystack to pick characters from
+     * @return string A random string
+     * @throws Exception when an invalid length is provided
+     * @throws Exception when an empty haystack is provided
+     * @throws Exception when the requested length is greater then the length
+     * of the haystack
+     */
+    public static function generate($length = 8, $haystack = null) {
+    	$string = '';
+    	if ($haystack === null) {
+    		$haystack = self::GENERATE_HAYSTACK;
+    	}
+
+    	if (!is_integer($length) || $length <= 0) {
+    		throw new Exception('Could not generate a random string: invalid length provided');
+    	}
+
+    	if (!is_string($haystack) || !$haystack) {
+    		throw new Exception('Could not generate a random string: empty or invalid haystack provided');
+    	}
+
+    	$haystackLength = strlen($haystack);
+    	if ($length > $haystackLength) {
+    		throw new Exception('Length cannot be greater than the length of the haystack. Length is ' . $length . ' and the length of the haystack is ' . $haystackLength);
+    	}
+
+    	$i = 0;
+    	while ($i < $length) {
+    		$index = mt_rand(0, $haystackLength - 1);
+
+    		$string .= $haystack[$index];
+
+    		$i++;
+    	}
+
+    	return $string;
     }
 
 }

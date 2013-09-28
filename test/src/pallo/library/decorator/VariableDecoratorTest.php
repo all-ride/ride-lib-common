@@ -6,9 +6,9 @@ use \PHPUnit_Framework_TestCase;
 
 class VariableDecoratorTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * @dataProvider providerDecorate
-	 */
+    /**
+     * @dataProvider providerDecorate
+     */
     public function testDecorate($expected, $value) {
         $decorator = new VariableDecorator();
 
@@ -16,14 +16,14 @@ class VariableDecoratorTest extends PHPUnit_Framework_TestCase {
     }
 
     public function providerDecorate() {
-    	return array(
-    		array("\"test\"", "test"),
-    		array("true", true),
-    		array("false", false),
-    		array("null", null),
-    		array("1, 2", array(1, 2)),
-    		array("pallo\\library\\decorator\\VariableDecoratorTest", $this),
-    	);
+        return array(
+            array("\"test\"", "test"),
+            array("true", true),
+            array("false", false),
+            array("null", null),
+            array("[0 => 1, 1 => 2]", array(1, 2)),
+            array("pallo\\library\\decorator\\VariableDecoratorTest", $this),
+        );
     }
 
     public function testDecorateWithResource() {
