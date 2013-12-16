@@ -52,6 +52,14 @@ class Autoloader {
     }
 
     /**
+     * Gets the include paths
+     * @return array
+     */
+    public function getIncludePaths() {
+        return $this->includePaths;
+    }
+
+    /**
      * Removes a source directory from the include paths
      * @param string $path Path of a source directory
      * @return null
