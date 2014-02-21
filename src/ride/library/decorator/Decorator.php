@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\decorator;
+namespace ride\library\decorator;
 
 /**
  * Interface to decorate/format a value for another context

@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\decorator;
+namespace ride\library\decorator;
 
 use \PHPUnit_Framework_TestCase;
 
@@ -22,7 +22,7 @@ class VariableDecoratorTest extends PHPUnit_Framework_TestCase {
             array("false", false),
             array("null", null),
             array("[0 => 1, 1 => 2]", array(1, 2)),
-            array("pallo\\library\\decorator\\VariableDecoratorTest", $this),
+            array("ride\\library\\decorator\\VariableDecoratorTest", $this),
         );
     }
 

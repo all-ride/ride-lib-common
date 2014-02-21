@@ -1,8 +1,8 @@
 <?php
 
-namespace pallo\library\decorator;
+namespace ride\library\decorator;
 
-use pallo\library\decorator\exception\DecoratorException;
+use ride\library\decorator\exception\DecoratorException;
 
 use \DateTime;
 

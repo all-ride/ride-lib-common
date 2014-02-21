@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library;
+namespace ride\library;
 
 use \Exception;
 
@@ -10,9 +10,9 @@ use \Exception;
  *
  * <p>Loads classes with the following types of naming:</p>
  * <ul>
- * <li>pallo\library\Autoloader in <path>/pallo/core/Autloader.php
- * <li>pallo_library_Autoloader in <path>/pallo/library/Autoloader.php
- * <li>pallo_library_Autoloader in <path>/pallo_library_Autoloader.php
+ * <li>ride\library\Autoloader in <path>/ride/core/Autloader.php
+ * <li>ride_library_Autoloader in <path>/ride/library/Autoloader.php
+ * <li>ride_library_Autoloader in <path>/ride_library_Autoloader.php
  * </ul>
  */
 class Autoloader {

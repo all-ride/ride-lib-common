@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\decorator;
+namespace ride\library\decorator;
 
 use \DateTime;
 use \PHPUnit_Framework_TestCase;
@@ -24,7 +24,7 @@ class DateFormatDecoratorTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException pallo\library\decorator\exception\DecoratorException
+     * @expectedException ride\library\decorator\exception\DecoratorException
      */
     public function testSetDateFormatThrowsExceptionOnInvalidDateFormat() {
         $decorator = new DateFormatDecorator();

@@ -1,8 +1,8 @@
 <?php
 
-namespace pallo\library\decorator;
+namespace ride\library\decorator;
 
-use pallo\library\decorator\exception\DecoratorException;
+use ride\library\decorator\exception\DecoratorException;
 
 /**
  * Decorator for a percent value
@@ -18,7 +18,7 @@ class PercentDecorator implements Decorator {
     /**
      * Sets the precision
      * @param integer $precision Number of decimal digits to round the value
-     * @throws pallo\library\decorator\exception\DecoratorException when the
+     * @throws ride\library\decorator\exception\DecoratorException when the
      * precision is not a integer or smaller then 0
      */
     public function setPrecision($precision = 0) {

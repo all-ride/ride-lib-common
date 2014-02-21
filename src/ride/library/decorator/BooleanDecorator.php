@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\decorator;
+namespace ride\library\decorator;
 
 /**
  * Decorator for a boolean value

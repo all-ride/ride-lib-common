@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\decorator;
+namespace ride\library\decorator;
 
 /**
  * Decorate a value into a human readable file/memory size
