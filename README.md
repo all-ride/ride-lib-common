@@ -1,6 +1,6 @@
-# Pallo: Common Library
+# Ride: Common Library
 
-Shared classes of the PHP Pallo framework.
+Shared classes of the PHP Ride framework.
     
 ## Decorators
 
@@ -11,9 +11,9 @@ Check this code sample:
 
     <?php
     
-    use pallo\library\decorator\DateFormatDecorator;
-    use pallo\library\decorator\StorageSizeDecorator;
-    use pallo\library\decorator\VariableDecorator;
+    use ride\library\decorator\DateFormatDecorator;
+    use ride\library\decorator\StorageSizeDecorator;
+    use ride\library\decorator\VariableDecorator;
     
     // decorate dates into a formatted date
     $decorator = new DateFormatDecorator();
@@ -30,25 +30,25 @@ Check this code sample:
     $result = $decorator->decorate(null); // 'null' 
     $result = $decorator->decorate(true); // 'true' 
     $result = $decorator->decorate(array('key' => 'value')); // '["key" => "value"]'  
-    $result = $decorator->decorate(array($decorator)); // 'pallo\library\decorator\VariableDecorator'  
+    $result = $decorator->decorate(array($decorator)); // 'ride\library\decorator\VariableDecorator'  
 
 ## Autoloader
 
-The autoloader of the Pallo framework is a PSR-0 autoloader.
+The autoloader of the Ride framework is a PSR-0 autoloader.
 
 It handles class names like:
 
-* pallo\library\Autoloader: checked as _pallo/library/Autoloader/php_
-* pallo_library_Autoloader: checked as _pallo/library/Autoloader.php_ and _pallo_library_Autoloader.php_
+* ride\library\Autoloader: checked as _ride/library/Autoloader/php_
+* ride_library_Autoloader: checked as _ride/library/Autoloader.php_ and _ride_library_Autoloader.php_
 
 Check this code sample:
 
     <?php
     
-    use pallo\library\Autoloader;
-    use pallo\library\String;
+    use ride\library\Autoloader;
+    use ride\library\String;
     
-    require_once('path/to/pallo/library/Autoloader.php');
+    require_once('path/to/ride/library/Autoloader.php');
 
     $autoloader = new Autoloader();
     $autoloader->addIncludePath('module1/src');
@@ -61,13 +61,13 @@ Check this code sample:
 
 ## Error Handler
 
-The error handler of the Pallo framework simply converts handable errors into exceptions.
+The error handler of the Ride framework simply converts handable errors into exceptions.
 
 Check this code sample:
 
     <?php
     
-    use pallo\library\ErrorHandler;
+    use ride\library\ErrorHandler;
 
     $errorHandler = new ErrorHandler();
     $errorHandler->registerErrorHandler();
@@ -84,7 +84,7 @@ The string helper comes in handy when processing values.
 
     <?php
     
-    use pallo\library\String;    
+    use ride\library\String;    
     
     $string = new String("Let's create a stràngé STRING");
     $result = $string->safeString(); // 'lets-create-a-strange-string'
@@ -105,7 +105,7 @@ It has a detail of microseconds.
 
     <?php
     
-    use pallo\library\Timer;
+    use ride\library\Timer;
 
     $timer = new Timer();
     $timer->reset();
