@@ -5,30 +5,10 @@ namespace ride\library;
 use \Exception;
 use \PHPUnit_Framework_TestCase;
 
-class StringTest extends PHPUnit_Framework_TestCase {
-
-    /**
-     * @dataProvider providerSetStringThrowsExceptionWhenInvalidArgumentProvided
-     */
-    public function testSetStringThrowsExceptionWhenInvalidArgumentProvided($string) {
-        try {
-            new String($string);
-        } catch (Exception $e) {
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function providerSetStringThrowsExceptionWhenInvalidArgumentProvided() {
-        return array(
-            array(array()),
-            array($this),
-        );
-    }
+class StringHelperTest extends PHPUnit_Framework_TestCase {
 
     public function testGenerate() {
-        $string = String::generate();
+        $string = StringHelper::generate();
 
         $this->assertNotNull($string);
         $this->assertTrue(!empty($string));
@@ -37,7 +17,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
 
     public function testGenerateThrowsExceptionWhenLengthOfHaystackIsLessThenRequestedLength() {
         try {
-            String::generate(155);
+            StringHelper::generate(155);
         } catch (Exception $e) {
             return;
         }
@@ -47,7 +27,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
 
     public function testGenerateThrowsExceptionWhenInvalidLengthProvided() {
         try {
-            String::generate('test');
+            StringHelper::generate('test');
         } catch (Exception $e) {
             return;
         }
@@ -57,7 +37,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
 
     public function testGenerateThrowsExceptionWhenInvalidHaystackProvided() {
         try {
-            String::generate(8, $this);
+            StringHelper::generate(8, $this);
         } catch (Exception $e) {
             return;
         }
@@ -69,8 +49,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
      * @dataProvider providerStartsWith
      */
     public function testStartsWith($expected, $value, $start, $isCaseInsensitive) {
-        $string = new String($value);
-        $result = $string->startsWith($start, $isCaseInsensitive);
+        $result = StringHelper::startsWith($value, $start, $isCaseInsensitive);
 
         $this->assertEquals($expected, $result);
     }
@@ -91,8 +70,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
      * @dataProvider providerTruncate
      */
     public function testTruncate($expected, $value, $length, $etc, $breakWords) {
-        $string = new String($value);
-        $result = $string->truncate($length, $etc, $breakWords);
+        $result = StringHelper::truncate($value, $length, $etc, $breakWords);
 
         $this->assertEquals($expected, $result);
     }
@@ -109,10 +87,10 @@ class StringTest extends PHPUnit_Framework_TestCase {
      * @dataProvider providerTruncateThrowsExceptionWhenInvalidArgumentProvided
      */
     public function testTruncateThrowsExceptionWhenInvalidArgumentProvided($length, $etc) {
-        $string = new String('abcdefghijklmnopqrstuvwxyz');
+        $string = 'abcdefghijklmnopqrstuvwxyz';
 
         try {
-            $string->truncate($length, $etc);
+            StringHelper::truncate($string, $length, $etc);
         } catch (Exception $e) {
             return;
         }
@@ -137,8 +115,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
     public function testSafeString($expected, $value) {
         $locale = setlocale(LC_ALL, 'en_IE.utf8', 'en_IE', 'en');
 
-        $string = new String($value);
-        $result = $string->safeString();
+        $result = StringHelper::safeString($value);
 
         $this->assertEquals($expected, $result);
     }
@@ -160,8 +137,7 @@ class StringTest extends PHPUnit_Framework_TestCase {
         $text = "Line1\nLine2\nLine3";
         $expected = "1: Line1\n2: Line2\n3: Line3";
 
-        $string = new String($text);
-        $result = $string->addLineNumbers();
+        $result = StringHelper::addLineNumbers($text);
 
         $this->assertEquals($expected, $result);
     }
