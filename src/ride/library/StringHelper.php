@@ -6,9 +6,8 @@ use \Exception;
 
 /**
  * String helper
- * @deprecated
  */
-class String {
+class StringHelper {
 
     /**
      * Default character haystack for generating strings
@@ -17,63 +16,25 @@ class String {
     const GENERATE_HAYSTACK = '123456789bcdfghjkmnpqrstvwxyz';
 
     /**
-     * String
-     * @var string
-     */
-    protected $string;
-
-    /**
-     * Constructs a new string
-     * @param string $string
-     * @return null
-     */
-    public function __construct($string = null) {
-        $this->setString($string);
-    }
-
-    /**
-     * Gets the string
-     * @return string
-     */
-    public function __toString() {
-        return $this->string;
-    }
-
-    /**
-     * Sets the string
-     * @param string $string
-     * @return null
-     * @throws Exception when a invalid string has been provided
-     */
-    public function setString($string) {
-        if ($string === null) {
-            $string = '';
-        } elseif (!is_scalar($string) && !method_exists($string, '__toString')) {
-            throw new Exception('Could not set the string: invalid string provided');
-        }
-
-        $this->string = (string) $string;
-    }
-
-    /**
      * Checks whether the string starts with the provided start
-     * @param string|array $start String to check as start or an array of strings
+     * @param string $string String to check
+     * @param string|array $start Start or an array of start strings
+     * @param boolean $isCaseInsensitive Set to true to ignore case
      * @return boolean True when the string starts with the provided start
      */
-    public function startsWith($start, $isCaseInsensitive = false) {
+    public static function startsWith($string, $start, $isCaseInsensitive = false) {
         if (!is_array($start)) {
             $start = array($start);
         }
 
-        $string = $this->string;
         if ($isCaseInsensitive) {
-        	$string = strtoupper($string);
+            $string = strtoupper($string);
         }
 
         foreach ($start as $token) {
-	        if ($isCaseInsensitive) {
-	        	$token = strtoupper($token);
-	        }
+            if ($isCaseInsensitive) {
+                $token = strtoupper($token);
+            }
 
             $startLength = strlen($token);
             if (strncmp($string, $token, $startLength) == 0) {
@@ -86,14 +47,15 @@ class String {
 
     /**
      * Truncates the provided string
+     * @param string $string String to truncate
      * @param integer $length Number of characters to keep
      * @param string $etc String to truncate with
      * @param boolean $breakWords Set to true to keep words as a whole
      * @return string Truncated string
      * @throws Exception when the provided length is not a positive integer
      */
-    public function truncate($length = 80, $etc = '...', $breakWords = false) {
-        if (!$this->string) {
+    public static function truncate($string, $length = 80, $etc = '...', $breakWords = false) {
+        if (!$string) {
             return '';
         }
 
@@ -101,15 +63,13 @@ class String {
             throw new Exception('Could not truncate the string: provided length is not a positive integer');
         }
 
-        if (strlen($this->string) < $length) {
-            return $this->string;
+        if (strlen($string) < $length) {
+            return $string;
         }
 
         if (!is_string($etc)) {
             throw new Exception('Could not truncate the string: provided etc is not a string');
         }
-
-        $string = $this->string;
 
         $length -= strlen($etc);
         if (!$breakWords) {
@@ -121,16 +81,16 @@ class String {
 
     /**
      * Gets a safe string for file name and URL usage
-     * @param string $replacement Replacement string for all non alpha numeric characters
+     * @param string $string String to get the safe string of
+     * @param string $replacement Replacement string for all non alpha numeric
+     * characters
      * @param boolean $lower Set to false to skip strtolower
      * @return string Safe string for file names and URLs
      */
-    public function safeString($replacement = '-', $lower = true) {
-        if (!$this->string) {
-            return $this->string;
+    public static function safeString($string, $replacement = '-', $lower = true) {
+        if (!$string) {
+            return $string;
         }
-
-        $string = $this->string;
 
         $encoding = mb_detect_encoding($string);
         if ($encoding != 'ASCII') {
@@ -152,10 +112,10 @@ class String {
      * @param string $string String to add line numbers to
      * @return string String with line numbers added
      */
-    public function addLineNumbers() {
+    public static function addLineNumbers($string) {
         $output = '';
         $lineNumber = 1;
-        $lines = explode("\n", $this->string);
+        $lines = explode("\n", $string);
         $lineMaxDigits = strlen(count($lines));
 
         foreach ($lines as $line) {
@@ -179,34 +139,34 @@ class String {
      * of the haystack
      */
     public static function generate($length = 8, $haystack = null) {
-    	$string = '';
-    	if ($haystack === null) {
-    		$haystack = self::GENERATE_HAYSTACK;
-    	}
+        $string = '';
+        if ($haystack === null) {
+            $haystack = self::GENERATE_HAYSTACK;
+        }
 
-    	if (!is_integer($length) || $length <= 0) {
-    		throw new Exception('Could not generate a random string: invalid length provided');
-    	}
+        if (!is_integer($length) || $length <= 0) {
+            throw new Exception('Could not generate a random string: invalid length provided');
+        }
 
-    	if (!is_string($haystack) || !$haystack) {
-    		throw new Exception('Could not generate a random string: empty or invalid haystack provided');
-    	}
+        if (!is_string($haystack) || !$haystack) {
+            throw new Exception('Could not generate a random string: empty or invalid haystack provided');
+        }
 
-    	$haystackLength = strlen($haystack);
-    	if ($length > $haystackLength) {
-    		throw new Exception('Length cannot be greater than the length of the haystack. Length is ' . $length . ' and the length of the haystack is ' . $haystackLength);
-    	}
+        $haystackLength = strlen($haystack);
+        if ($length > $haystackLength) {
+            throw new Exception('Length cannot be greater than the length of the haystack. Length is ' . $length . ' and the length of the haystack is ' . $haystackLength);
+        }
 
-    	$i = 0;
-    	while ($i < $length) {
-    		$index = mt_rand(0, $haystackLength - 1);
+        $i = 0;
+        while ($i < $length) {
+            $index = mt_rand(0, $haystackLength - 1);
 
-    		$string .= $haystack[$index];
+            $string .= $haystack[$index];
 
-    		$i++;
-    	}
+            $i++;
+        }
 
-    	return $string;
+        return $string;
     }
 
 }
