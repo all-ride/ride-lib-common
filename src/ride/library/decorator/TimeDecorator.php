@@ -40,11 +40,11 @@ class TimeDecorator implements Decorator {
             return $value;
         }
 
-        if ($this->includeHours === true || $this->includeSeconds === null) {
-            $hours = floor($data / 3600);
+        if ($this->includeHours === true || $this->includeHours === null) {
+            $hours = floor($value / 3600);
             $hours .= ':';
 
-            $value = $data % 3600;
+            $value %= 3600;
         } else {
             $hours = '';
         }
