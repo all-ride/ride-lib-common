@@ -14,13 +14,20 @@ class TimeDecorator implements Decorator {
     protected $includeSeconds;
 
     /**
+     * Flag to see if hours should be included in the format
+     * @var boolean|null
+     */
+    protected $includeHours;
+
+    /**
      * Constructs a new decorator
      * @param boolean|null $includeSeconds True to include, false to omit and
      * null to autodetect
      * @return null
      */
-    public function __construct($includeSeconds = null) {
+    public function __construct($includeSeconds = null, $includeHours = null) {
         $this->includeSeconds = $includeSeconds;
+        $this->includeHours = $includeHours;
     }
 
     /**
@@ -33,12 +40,19 @@ class TimeDecorator implements Decorator {
             return $value;
         }
 
-        $hours = floor($data / 3600);
-        $value = $data % 3600;
+        if ($this->includeHours === true || $this->includeSeconds === null) {
+            $hours = floor($data / 3600);
+            $hours .= ':';
+
+            $value = $data % 3600;
+        } else {
+            $hours = '';
+        }
+
         $minutes = floor($value / 60);
         $seconds = $value % 60;
 
-        $time = $hours . ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT);
+        $time = $hours . str_pad($minutes, 2, '0', STR_PAD_LEFT);
 
         if ($this->includeSeconds === true || ($this->includeSeconds === null && $seconds)) {
             $time .= ':' . str_pad($seconds, 2, '0', STR_PAD_LEFT);
