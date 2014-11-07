@@ -5,7 +5,7 @@ namespace ride\library\decorator;
 /**
  * Decorator for a boolean value
  */
-class BooleanDecorator {
+class BooleanDecorator implements Decorator {
 
     /**
      * Translation key for the default true value
