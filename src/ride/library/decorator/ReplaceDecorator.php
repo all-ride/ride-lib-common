@@ -8,8 +8,8 @@ namespace ride\library\decorator;
 class ReplaceDecorator implements Decorator {
 
     /**
-     * Search string
-     * @var string
+     * Search string or array of strings
+     * @var string|array
      */
     protected $search;
 
@@ -21,8 +21,9 @@ class ReplaceDecorator implements Decorator {
 
     /**
      * Constructs a new replace decorator
-     * @param string $search Search string
+     * @param string|array $search Search string or array of strings
      * @param string $replace Replace string
+     * @return null
      */
     public function __construct($search, $replace) {
         $this->setSearch($search);
@@ -30,8 +31,8 @@ class ReplaceDecorator implements Decorator {
     }
 
     /**
-     * Sets the search string
-     * @param string $search
+     * Sets the search string/array
+     * @param string|array $search Search string or array of strings
      * @return null
      */
     public function setSearch($search) {
@@ -39,8 +40,8 @@ class ReplaceDecorator implements Decorator {
     }
 
     /**
-     * Gets the search string
-     * @return string
+     * Gets the search string/array
+     * @return string|array Search string or array of strings
      */
     public function getSearch() {
         return $this->search;

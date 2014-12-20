@@ -2,10 +2,6 @@
 
 namespace ride\library\decorator;
 
-use ride\library\decorator\exception\DecoratorException;
-
-use \DateTime;
-
 /**
  * Decorate a UNIX timestamp into a human readable date
  */
