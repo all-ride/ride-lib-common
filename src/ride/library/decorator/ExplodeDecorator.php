@@ -13,7 +13,16 @@ class ExplodeDecorator implements Decorator {
      * Glue between the values
      * @var string
      */
-    protected $glue = ',';
+    protected $glue;
+
+    /**
+     * Constructs a new explode decorator
+     * @param string $glue Glue between the values
+     * @return null
+     */
+    public function __construct($glue = ',') {
+        $this->setGlue($glue);
+    }
 
     /**
      * Sets the glue
@@ -22,6 +31,14 @@ class ExplodeDecorator implements Decorator {
      */
     public function setGlue($glue) {
         $this->glue = $glue;
+    }
+
+    /**
+     * Gets the glue
+     * @return string
+     */
+    public function getGlue() {
+        return $this->glue;
     }
 
     /**
