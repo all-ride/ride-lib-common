@@ -102,7 +102,9 @@ class Autoloader {
      * @return boolean True if the file is included, false otherwise
      */
     protected function autoloadFile($fileName) {
-        $fileName = realpath($fileName);
+        if (strpos($fileName, 'phar:///') !== 0) {
+            $fileName = realpath($fileName);
+        }
 
         if (!$fileName || !is_readable($fileName)) {
             return false;
