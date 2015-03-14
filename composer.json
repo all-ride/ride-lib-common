@@ -2,7 +2,7 @@
     "name": "ride/lib-common",
     "description": "Shared classes of the Ride framework",
     "license": "MIT",
-    "version": "0.4.9",
+    "version": "0.4.10",
     "authors": [
         {
             "name": "Joris Vandeweerd",
