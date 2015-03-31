@@ -98,7 +98,10 @@ class StringHelper {
         }
 
         $string = preg_replace("/[\s]/", $replacement, $string);
-        $string = preg_replace("/[^A-Za-z0-9._-]/", '', $string);
+
+        $string = preg_replace("/[^A-Za-z0-9_-]/", '', $string);
+        $string = preg_replace("/[\W]+/", '-', $string);
+        $string = strtolower($string);
 
         if ($lower) {
             $string = strtolower($string);
