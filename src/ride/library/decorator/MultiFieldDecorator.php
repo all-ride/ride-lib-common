@@ -1,0 +1,73 @@
+<?php
+
+namespace statik\leucul\import\decorators;
+
+use ride\library\decorator\Decorator;
+
+/**
+ * Decorator for a value which should be split up into multiple fields.
+ */
+class MultiFieldDecorator implements Decorator {
+
+	/**
+	 * @var string
+	 */
+	protected $seperator;
+
+	/**
+	 * @var int
+	 */
+	protected $index;
+
+    public function __construct($separator, $index = 0) {
+        $this->setSeperator($separator);
+        $this->setIndex($index);
+    }
+
+	/**
+	 * @return string
+	 */
+	public function getSeperator() {
+		return $this->seperator;
+	}
+
+	/**
+	 * @param string $seperator
+	 */
+	public function setSeperator($seperator) {
+		$this->seperator = $seperator;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getIndex() {
+		return $this->index;
+	}
+
+	/**
+	 * @param int $index
+	 */
+	public function setIndex($index) {
+		$this->index = $index;
+	}
+
+    /**
+     * Performs the actual decorating on the provided value.
+     * @param mixed $value Value to decorate
+     * @return mixed Decorated value
+     */
+    public function decorate($value) {
+        if (empty($value)) {
+            return '';
+        }
+        else {
+            $values = explode($this->getSeperator(), $value);
+            if (count($values) <= $this->getIndex()) {
+                return ltrim(rtrim($values[0]));
+            }
+            return ltrim(rtrim($values[$this->getIndex()]));
+        }
+    }
+
+}
