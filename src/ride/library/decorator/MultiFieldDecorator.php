@@ -69,10 +69,10 @@ class MultiFieldDecorator implements Decorator {
         else {
             $values = explode($this->getSeperator(), $value);
             if (count($values) <= $this->getIndex()) {
-                return ltrim(rtrim($values[0]));
+                return trim($values[0]);
             }
 
-            return ltrim(rtrim($values[$this->getIndex()]));
+            return trim($values[$this->getIndex()]);
         }
     }
 
