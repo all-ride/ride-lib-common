@@ -7,28 +7,28 @@ namespace ride\library\decorator;
  */
 class DefaultDecorator implements Decorator {
 
-	/**
-	 * @var string
-	 */
-	protected $defaultValue;
+    /**
+     * @var string
+     */
+    protected $defaultValue;
 
-    public function __construct($defaultValue = '') {
+    public function __construct($defaultValue) {
         $this->setDefaultValue($defaultValue);
     }
 
-	/**
-	 * @return string
-	 */
-	public function getDefaultValue() {
-		return $this->defaultValue;
-	}
+    /**
+     * @return string
+     */
+    public function getDefaultValue() {
+        return $this->defaultValue;
+    }
 
-	/**
-	 * @param string $defaultValue
-	 */
-	public function setDefaultValue($defaultValue) {
-		$this->defaultValue = $defaultValue;
-	}
+    /**
+     * @param string $defaultValue
+     */
+    public function setDefaultValue($defaultValue) {
+        $this->defaultValue = $defaultValue;
+    }
 
     /**
      * Replaces an empty value with a default value

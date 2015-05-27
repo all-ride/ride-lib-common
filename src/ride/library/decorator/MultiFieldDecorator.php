@@ -9,51 +9,56 @@ use ride\library\decorator\Decorator;
  */
 class MultiFieldDecorator implements Decorator {
 
-	/**
-	 * @var string
-	 */
-	protected $seperator;
+    /**
+     * @var string
+     */
+    protected $seperator;
 
-	/**
-	 * @var int
-	 */
-	protected $index;
+    /**
+     * @var int
+     */
+    protected $index;
 
+    /**
+     * @param String $separator
+     * @param int $index
+     */
     public function __construct($separator, $index = 0) {
         $this->setSeperator($separator);
         $this->setIndex($index);
     }
 
-	/**
-	 * @return string
-	 */
-	public function getSeperator() {
-		return $this->seperator;
-	}
-
-	/**
-	 * @param string $seperator
-	 */
-	public function setSeperator($seperator) {
-		$this->seperator = $seperator;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getIndex() {
-		return $this->index;
-	}
-
-	/**
-	 * @param int $index
-	 */
-	public function setIndex($index) {
-		$this->index = $index;
-	}
+    /**
+     * @return string
+     */
+    public function getSeperator() {
+        return $this->seperator;
+    }
 
     /**
-     * Performs the actual decorating on the provided value.
+     * @param string $seperator
+     */
+    public function setSeperator($seperator) {
+        $this->seperator = $seperator;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIndex() {
+        return $this->index;
+    }
+
+    /**
+     * @param int $index
+     */
+    public function setIndex($index) {
+        $this->index = $index;
+    }
+
+    /**
+     * This decorator splits the given value using the provided seperator.
+     * The value obtained by using the provided index will be returned.
      * @param mixed $value Value to decorate
      * @return mixed Decorated value
      */
@@ -66,6 +71,7 @@ class MultiFieldDecorator implements Decorator {
             if (count($values) <= $this->getIndex()) {
                 return ltrim(rtrim($values[0]));
             }
+
             return ltrim(rtrim($values[$this->getIndex()]));
         }
     }
