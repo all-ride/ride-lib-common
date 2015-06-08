@@ -88,7 +88,7 @@ try {
 
 The string helper comes in handy when processing values.
 
-```
+```php
 <?php
 
 use ride\library\String;
