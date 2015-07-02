@@ -3,7 +3,7 @@
 namespace ride\library\decorator;
 
 /**
- * Decorate a UNIX timestamp into a human readable date
+ * Decorate a human readable date into a UNIX timestamp
  */
 class DateFromFormatDecorator extends DateFormatDecorator {
 
