@@ -29,7 +29,7 @@ class DateFromFormatDecorator extends DateFormatDecorator {
      * provided, the original value otherwise
      */
     public function decorate($value) {
-        if (!is_string($value)) {
+        if (is_numeric($value)) {
             return $value;
         }
 
