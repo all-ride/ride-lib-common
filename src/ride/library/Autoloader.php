@@ -82,12 +82,12 @@ class Autoloader {
         $namespacedClassFile = str_replace(array('\\', '_'), DIRECTORY_SEPARATOR, $classFile);
 
         foreach ($this->includePaths as $includePath) {
-            if ($this->autoloadFile($includePath . '/' . $namespacedClassFile)) {
+            if ($this->autoloadFile($includePath . DIRECTORY_SEPARATOR . $namespacedClassFile)) {
                 return true;
             }
 
             if (strpos($classFile, '\\') === false) {
-                if ($this->autoloadFile($includePath . '/' . $classFile)) {
+                if ($this->autoloadFile($includePath . DIRECTORY_SEPARATOR . $classFile)) {
                     return true;
                 }
             }
