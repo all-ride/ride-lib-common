@@ -5,8 +5,7 @@ namespace ride\library;
 use \Exception;
 
 /**
- * Generic autoloader according to PSR. This loader initializes with the PHP
- * include paths.
+ * Generic autoloader according to PSR.
  *
  * <p>Loads classes with the following types of naming:</p>
  * <ul>
@@ -21,34 +20,51 @@ class Autoloader {
      * Source include paths
      * @var array
      */
-    protected $includePaths;
-
-    /**
-     * Constructs a new autoloader
-     * @return null
-     */
-    public function __construct() {
-        $this->includePaths = explode(PATH_SEPARATOR, get_include_path());
-    }
+    protected $includePaths = array();
 
     /**
      * Adds a source directory where classes could be found.
-     *
-     * <p>This directory will be prepended to the current set include paths. This
-     * way newly added include paths will be looked through first before
-     * checking the general PHP include paths.</p>
      * @param string $path Path of a source directory
+     * @param boolean $prepend Flag to see if this path should be prepended to
+     * the include paths or not
      * @return null
-     * @throws Exception when the provided path is a invalid value
+     * @throws \Exception when the provided path is a invalid value
      */
-    public function addIncludePath($path) {
+    public function addIncludePath($path, $prepend = true) {
         if (!is_string($path) || !$path) {
             throw new Exception('Could not add include path: provided path is not a string or is empty');
         }
 
         $path = rtrim($path, '/');
 
-        array_unshift($this->includePaths, $path);
+        if ($prepend) {
+            array_unshift($this->includePaths, $path);
+        } else {
+            array_pop($this->includePaths, $path);
+        }
+    }
+
+    /**
+     * Adds multiple source directories at once.
+     * @param array $paths Paths to add, when null is& provided, the PHP include
+     * paths will be added
+     * @param boolean $prepend Flag to see if this path should be prepended to
+     * the include paths or not
+     * @return null
+     */
+    public function addIncludePaths(array $paths = null, $prepend = true) {
+        if ($paths === null) {
+            $paths = explode(PATH_SEPARATOR, get_include_path());
+
+            if ($prepend) {
+                // maintain path order when prepending
+                $paths = array_reverse($paths);
+            }
+        }
+
+        foreach ($paths as $path) {
+            $this->addIncludePath($path, $prepend);
+        }
     }
 
     /**
@@ -82,12 +98,12 @@ class Autoloader {
         $namespacedClassFile = str_replace(array('\\', '_'), DIRECTORY_SEPARATOR, $classFile);
 
         foreach ($this->includePaths as $includePath) {
-            if ($this->autoloadFile($includePath . '/' . $namespacedClassFile)) {
+            if ($this->autoloadFile($includePath . DIRECTORY_SEPARATOR . $namespacedClassFile)) {
                 return true;
             }
 
             if (strpos($classFile, '\\') === false) {
-                if ($this->autoloadFile($includePath . '/' . $classFile)) {
+                if ($this->autoloadFile($includePath . DIRECTORY_SEPARATOR . $classFile)) {
                     return true;
                 }
             }
@@ -114,7 +130,7 @@ class Autoloader {
     /**
      * Registers this autoload implementation to PHP
      * @return null
-     * @throws Exception when the autoloader could not be registered
+     * @throws \Exception when the autoloader could not be registered
      */
     public function registerAutoloader($prepend = false) {
         if (!spl_autoload_register(array($this, 'autoload'), false, $prepend)) {
@@ -125,7 +141,7 @@ class Autoloader {
     /**
      * Unegisters this autoload implementation from PHP
      * @return null
-     * @throws Exception when the autoloader could not be unregistered
+     * @throws \Exception when the autoloader could not be unregistered
      */
     public function unregisterAutoloader() {
         if (!spl_autoload_unregister(array($this, 'autoload'))) {
