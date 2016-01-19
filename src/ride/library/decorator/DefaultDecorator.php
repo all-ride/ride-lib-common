@@ -8,39 +8,47 @@ namespace ride\library\decorator;
 class DefaultDecorator implements Decorator {
 
     /**
-     * @var string
+     * Default value when the to decorate value is empty
+     * @var mixed
      */
     protected $defaultValue;
 
+    /**
+     * Constructs a new default decorator
+     * @param mixed $defaultValue Value when the to decorate value is empty
+     * @return null
+     */
     public function __construct($defaultValue) {
         $this->setDefaultValue($defaultValue);
     }
-
     /**
-     * @return string
-     */
-    public function getDefaultValue() {
-        return $this->defaultValue;
-    }
-
-    /**
-     * @param string $defaultValue
+     * Sets the default value
+     * @param mixed $defaultValue
+     * @return null
      */
     public function setDefaultValue($defaultValue) {
         $this->defaultValue = $defaultValue;
     }
 
     /**
+     * Gets the default value
+     * @return mixed
+     */
+    public function getDefaultValue() {
+        return $this->defaultValue;
+    }
+
+    /**
      * Replaces an empty value with a default value
-     * @param mixed $values Values to decorate
-     * @return String The value if it is set, otherwise the default value,
+     * @param mixed $value Value to decorate
+     * @return mixed Provided value if not empty, the default value otherwise
      */
     public function decorate($value) {
-        if (empty($value)) {
-            return $this->getDefaultValue();
+        if (!empty($value)) {
+            return $value;
         }
 
-        return $value;
+        return $this->defaultValue;
     }
 
 }
