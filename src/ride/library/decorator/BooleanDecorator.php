@@ -32,6 +32,16 @@ class BooleanDecorator implements Decorator {
     protected $labelFalse;
 
     /**
+     * Constructs a new boolean decorator
+     * @param string $labelTrue Label for true values
+     * @param string $labelFalse Label for false values
+     * @return null
+     */
+    public function __construct($labelTrue = null, $labelFalse = null) {
+        $this->setLabels($labelTrue, $labelFalse);
+    }
+
+    /**
      * Sets the labels for true and false
      * @param string $labelTrue Label for true values
      * @param string $labelFalse Label for false values

@@ -29,17 +29,11 @@ class DateFromFormatDecorator extends DateFormatDecorator {
      * provided, the original value otherwise
      */
     public function decorate($value) {
-        if (is_numeric($value)) {
+        if (!is_string($value)) {
             return $value;
         }
 
-        if ($this->dateFormat) {
-            $dateFormat = $this->dateFormat;
-        } else {
-            $dateFormat = self::DEFAULT_DATE_FORMAT;
-        }
-
-        $date = date_create_from_format($dateFormat, $value);
+        $date = date_create_from_format($this->getDateFormat(), $value);
         if ($date === false) {
             if ($this->invalidToNull) {
                 return null;

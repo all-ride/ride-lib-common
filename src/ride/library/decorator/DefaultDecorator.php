@@ -18,7 +18,7 @@ class DefaultDecorator implements Decorator {
      * @param mixed $defaultValue Value when the to decorate value is empty
      * @return null
      */
-    public function __construct($defaultValue) {
+    public function __construct($defaultValue = null) {
         $this->setDefaultValue($defaultValue);
     }
     /**
