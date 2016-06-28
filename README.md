@@ -31,7 +31,7 @@ $decorator = new VariableDecorator();
 $result = $decorator->decorate(null); // 'null'
 $result = $decorator->decorate(true); // 'true'
 $result = $decorator->decorate(array('key' => 'value')); // '["key" => "value"]'
-$result = $decorator->decorate(array($decorator)); // 'ride\library\decorator\VariableDecorator'
+$result = $decorator->decorate($decorator); // 'ride\library\decorator\VariableDecorator'
 ```
 
 ## Autoloader
@@ -84,18 +84,18 @@ try {
 }
 ```
 
-## String
+## String Helper
 
 The string helper comes in handy when processing values.
 
 ```php
 <?php
 
-use ride\library\String;
+use ride\library\StringHelper;
 
 $string = "Let's create a stràngé STRING";
 $result = StringHelper::safeString($string); // 'lets-create-a-strange-string'
-$result = StringHelper::safeString($string'_', false); // 'Lets_create_a_strange_STRING'
+$result = StringHelper::safeString($string, '_', false); // 'Lets_create_a_strange_STRING'
 $result = StringHelper::startsWith($string, array('yes', 'no')); // false
 $result = StringHelper::startsWith($string, array('yes', 'no', 'Let')); // true
 $result = StringHelper::startsWith($string, 'let'); // false

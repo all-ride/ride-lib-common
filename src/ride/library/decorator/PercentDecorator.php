@@ -16,6 +16,14 @@ class PercentDecorator implements Decorator {
     protected $precision = 0;
 
     /**
+     * Constructs a new percent decorator
+     * @param integer $precision Number of decimal digits to round the value
+     */
+    public function __construct($precision = 0) {
+        $this->setPrecision($precision);
+    }
+
+    /**
      * Sets the precision
      * @param integer $precision Number of decimal digits to round the value
      * @throws \ride\library\decorator\exception\DecoratorException when the

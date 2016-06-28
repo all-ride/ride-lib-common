@@ -21,14 +21,23 @@ class TypeOrDecorator implements Decorator {
     protected $default;
 
     /**
+     * Flag to see if objects should be translated into their class name
+     * @var boolean
+     */
+    protected $resolveObject;
+
+    /**
      * Constructs a new type or decorator
      * @param string $type Type of the variable to pass
      * @param mixed $default Default value when the variable is not of the
      * provided type
+     * @param boolean $resolveObject Set to true to translate the object type
+     * into it's class name
      */
-    public function __construct($type, $default = null) {
+    public function __construct($type, $default = null, $resolveObject = false) {
         $this->type = $type;
         $this->default = $default;
+        $this->resolveObject = $resolveObject;
     }
 
     /**
@@ -39,6 +48,11 @@ class TypeOrDecorator implements Decorator {
      */
     public function decorate($value) {
         $type = gettype($value);
+
+        if ($type === 'object' && $this->resolveObject) {
+            $type = get_class($value);
+        }
+
         if ($type != $this->type) {
             return $this->default;
         }

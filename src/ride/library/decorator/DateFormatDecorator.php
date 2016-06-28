@@ -41,6 +41,10 @@ class DateFormatDecorator implements Decorator {
      * @return string date format
      */
     public function getDateFormat() {
+        if (!$this->dateFormat) {
+            $this->dateFormat = self::DEFAULT_DATE_FORMAT;
+        }
+
         return $this->dateFormat;
     }
 
@@ -51,21 +55,13 @@ class DateFormatDecorator implements Decorator {
      * the original value otherwise
      */
     public function decorate($value) {
-        if (!is_numeric($value) || $value < 0) {
-	    	if ($value instanceof DateTime) {
-				return $value->format($this->dateFormat);
-	    	}
-
+    	if ($value instanceof DateTime) {
+            return $value->format($this->getDateFormat());
+    	} elseif (!is_numeric($value)) {
             return $value;
         }
 
-        if ($this->dateFormat) {
-            $dateFormat = $this->dateFormat;
-        } else {
-            $dateFormat = self::DEFAULT_DATE_FORMAT;
-        }
-
-        return date($dateFormat, $value);
+        return date($this->getDateFormat(), $value);
     }
 
 }
