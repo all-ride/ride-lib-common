@@ -2,7 +2,9 @@
 
 Shared classes of the PHP Ride framework.
 
-## Decorators
+## What's In This Library
+
+### Decorators
 
 Decorators are used to convert values from one context into another.
 They should only act when the incoming value is handable.
@@ -34,13 +36,13 @@ $result = $decorator->decorate(array('key' => 'value')); // '["key" => "value"]'
 $result = $decorator->decorate($decorator); // 'ride\library\decorator\VariableDecorator'
 ```
 
-## Autoloader
+### Autoloader
 
 The autoloader of the Ride framework is a PSR-0 autoloader.
 
 It handles class names like:
 
-* ride\library\Autoloader: checked as _ride/library/Autoloader/php_
+* ride\library\Autoloader: checked as _ride/library/Autoloader.php_
 * ride_library_Autoloader: checked as _ride/library/Autoloader.php_ and _ride_library_Autoloader.php_
 
 Check this code sample:
@@ -63,7 +65,7 @@ $autoloader->registerAutoloader();
 $string = StringHelper::generate();
 ```
 
-## Error Handler
+### Error Handler
 
 The error handler of the Ride framework simply converts handable errors into exceptions.
 
@@ -84,7 +86,7 @@ try {
 }
 ```
 
-## String Helper
+### String Helper
 
 The string helper comes in handy when processing values.
 
@@ -105,7 +107,7 @@ $result = StringHelper::truncate($string, 12, '...', true); // 'Let's cre...'
 $result = StringHelper::generate(10); // a random string of 10 characters
 ```
 
-## Timer
+### Timer
 
 A timer can be used to track time of actions.
 It has a detail of microseconds.
@@ -119,4 +121,12 @@ $timer = new Timer();
 $timer->reset();
 $time = $timer->getTime(); // get the current time and keep on going
 $time = $timer->getTime(true); // get the current time and reset
+```
+
+## Installation
+
+You can use [Composer](http://getcomposer.org) to install this library.
+
+```
+composer require ride/lib-common
 ```
