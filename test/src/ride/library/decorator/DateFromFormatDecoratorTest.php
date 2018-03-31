@@ -3,9 +3,9 @@
 namespace ride\library\decorator;
 
 use \DateTime;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DateFromFormatDecoratorTest extends PHPUnit_Framework_TestCase {
+class DateFromFormatDecoratorTest extends TestCase {
 
     public function testSetAndGetDateFormat() {
         $decorator = new DateFromFormatDecorator();

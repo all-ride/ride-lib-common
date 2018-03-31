@@ -2,9 +2,9 @@
 
 namespace ride\library\decorator;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class StorageSizeDecoratorTest extends PHPUnit_Framework_TestCase {
+class StorageSizeDecoratorTest extends TestCase {
 
     /**
      * @dataProvider providerDecorate

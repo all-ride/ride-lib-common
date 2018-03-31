@@ -2,9 +2,9 @@
 
 namespace ride\library\decorator;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class PercentDecoratorTest extends PHPUnit_Framework_TestCase {
+class PercentDecoratorTest extends TestCase {
 
     /**
      * @dataProvider providerDecorate
@@ -21,6 +21,15 @@ class PercentDecoratorTest extends PHPUnit_Framework_TestCase {
             array('85 %', 85.212325, 0),
             array('85.21 %', 85.212325, 2),
         );
+    }
+
+    /**
+     * @expectedException ride\library\decorator\exception\DecoratorException
+     */
+    public function testSetPrecisionShouldThrowDecoratorException() {
+        $decorator = new PercentDecorator(0);
+
+        $decorator->setPrecision(-1);
     }
 
 }

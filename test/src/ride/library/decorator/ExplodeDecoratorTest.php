@@ -2,9 +2,9 @@
 
 namespace ride\library\decorator;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ExplodeDecoratorTest extends PHPUnit_Framework_TestCase {
+class ExplodeDecoratorTest extends TestCase {
 
     /**
      * @dataProvider providerDecorate
@@ -23,6 +23,12 @@ class ExplodeDecoratorTest extends PHPUnit_Framework_TestCase {
             array(array('test'), "test"),
             array(array('john', 'jane'), "john:jane"),
         );
+    }
+
+    public function testGetGlue() {
+        $decorator = new ExplodeDecorator(':');
+
+        $this->assertSame(':', $decorator->getGlue());
     }
 
 }

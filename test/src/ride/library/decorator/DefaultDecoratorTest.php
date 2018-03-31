@@ -2,9 +2,9 @@
 
 namespace ride\library\decorator;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DefaultDecoratorTest extends PHPUnit_Framework_TestCase {
+class DefaultDecoratorTest extends TestCase {
 
     /**
      * @dataProvider providerDecorate
@@ -24,6 +24,12 @@ class DefaultDecoratorTest extends PHPUnit_Framework_TestCase {
             array('default', 0),
             array('default', ''),
         );
+    }
+
+    public function testGetDefaultValue() {
+        $decorator = new DefaultDecorator('default');
+
+        $this->assertEquals('default', $decorator->getDefaultValue());
     }
 
 }

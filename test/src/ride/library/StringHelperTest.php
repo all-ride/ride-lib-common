@@ -2,10 +2,9 @@
 
 namespace ride\library;
 
-use \Exception;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class StringHelperTest extends PHPUnit_Framework_TestCase {
+class StringHelperTest extends TestCase {
 
     public function testGenerate() {
         $string = StringHelper::generate();
@@ -15,34 +14,28 @@ class StringHelperTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(strlen($string) == 8);
     }
 
+    /**
+     * @expectedException \Exception
+     * @ExcpectedExceptionMessage Length cannot be greater than the length of the haystack. Length is 155 and the length of the haystack is 29
+     */
     public function testGenerateThrowsExceptionWhenLengthOfHaystackIsLessThenRequestedLength() {
-        try {
-            StringHelper::generate(155);
-        } catch (Exception $e) {
-            return;
-        }
-
-        $this->fail();
+        StringHelper::generate(155);
     }
 
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Could not generate a random string: invalid length provided
+     */
     public function testGenerateThrowsExceptionWhenInvalidLengthProvided() {
-        try {
-            StringHelper::generate('test');
-        } catch (Exception $e) {
-            return;
-        }
-
-        $this->fail();
+        StringHelper::generate('test');
     }
 
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Could not generate a random string: empty or invalid haystack provided
+     */
     public function testGenerateThrowsExceptionWhenInvalidHaystackProvided() {
-        try {
-            StringHelper::generate(8, $this);
-        } catch (Exception $e) {
-            return;
-        }
-
-        $this->fail();
+        StringHelper::generate(8, $this);
     }
 
     /**
@@ -85,17 +78,11 @@ class StringHelperTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @dataProvider providerTruncateThrowsExceptionWhenInvalidArgumentProvided
+     * @expectedException \Exception
      */
     public function testTruncateThrowsExceptionWhenInvalidArgumentProvided($length, $etc) {
         $string = 'abcdefghijklmnopqrstuvwxyz';
-
-        try {
-            StringHelper::truncate($string, $length, $etc);
-        } catch (Exception $e) {
-            return;
-        }
-
-        $this->fail();
+        StringHelper::truncate($string, $length, $etc);
     }
 
     public function providerTruncateThrowsExceptionWhenInvalidArgumentProvided() {
@@ -140,6 +127,12 @@ class StringHelperTest extends PHPUnit_Framework_TestCase {
         $result = StringHelper::addLineNumbers($text);
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testTruncateShouldReturnOriginalString() {
+        $string = 'test';
+
+        $this->assertSame($string, StringHelper::truncate($string));
     }
 
 }
