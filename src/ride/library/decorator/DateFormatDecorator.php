@@ -24,6 +24,18 @@ class DateFormatDecorator implements Decorator {
     protected $dateFormat;
 
     /**
+     * Constructs a new date format decorator
+     * @param string $dateFormat Initial date format
+     */
+    public function __construct($dateFormat = null) {
+        if ($dateFormat === null) {
+            $dateFormat = self::DEFAULT_DATE_FORMAT;
+        }
+
+        $this->setDateFormat($dateFormat);
+    }
+
+    /**
      * Sets the date format used to write the timestamp of the log item
      * @param string $dateFormat
      * @return null
@@ -41,10 +53,6 @@ class DateFormatDecorator implements Decorator {
      * @return string date format
      */
     public function getDateFormat() {
-        if (!$this->dateFormat) {
-            $this->dateFormat = self::DEFAULT_DATE_FORMAT;
-        }
-
         return $this->dateFormat;
     }
 
