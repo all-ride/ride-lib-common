@@ -2,9 +2,9 @@
 
 namespace ride\library\decorator;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class BooleanDecoratorTest extends PHPUnit_Framework_TestCase {
+class BooleanDecoratorTest extends TestCase {
 
     /**
      * @dataProvider providerDecorate

@@ -2,9 +2,9 @@
 
 namespace ride\library;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TimerTest extends PHPUnit_Framework_TestCase {
+class TimerTest extends TestCase {
 
     public function testGetTime() {
         $timer = new Timer();

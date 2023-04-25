@@ -2,9 +2,9 @@
 
 namespace ride\library\decorator;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TimeDecoratorTest extends PHPUnit_Framework_TestCase {
+class TimeDecoratorTest extends TestCase {
 
     /**
      * @dataProvider providerDecorate

@@ -2,9 +2,9 @@
 
 namespace ride\library\decorator;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ReplaceDecoratorTest extends PHPUnit_Framework_TestCase {
+class ReplaceDecoratorTest extends TestCase {
 
     /**
      * @dataProvider providerDecorate
@@ -19,6 +19,18 @@ class ReplaceDecoratorTest extends PHPUnit_Framework_TestCase {
         return array(
             array('Hello John', 'Hello Joe', 'Joe', 'John'),
         );
+    }
+
+    public function testGetSearch() {
+        $decorator = new ReplaceDecorator('Joe', 'John');
+
+        $this->assertSame('Joe', $decorator->getSearch());
+    }
+
+    public function testGetReplace() {
+        $decorator = new ReplaceDecorator('Joe', 'John');
+
+        $this->assertSame('John', $decorator->getReplace());
     }
 
 }
