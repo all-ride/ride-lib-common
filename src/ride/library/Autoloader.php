@@ -9,7 +9,7 @@ use \Exception;
  *
  * <p>Loads classes with the following types of naming:</p>
  * <ul>
- * <li>ride\library\Autoloader in <path>/ride/core/Autloader.php
+ * <li>ride\library\Autoloader in <path>/ride/core/Autoloader.php
  * <li>ride_library_Autoloader in <path>/ride/library/Autoloader.php
  * <li>ride_library_Autoloader in <path>/ride_library_Autoloader.php
  * </ul>
@@ -133,7 +133,9 @@ class Autoloader {
      * @throws \Exception when the autoloader could not be registered
      */
     public function registerAutoloader($prepend = false) {
-        if (!spl_autoload_register(array($this, 'autoload'), false, $prepend)) {
+        try {
+            spl_autoload_register([$this, 'autoload'], true, $prepend);
+        } catch (\Exception $e) {
             throw new Exception('Could not register this autoloader');
         }
     }
