@@ -37,7 +37,7 @@ class StringHelper {
             }
 
             $startLength = strlen($token);
-            if (strncmp($string, $token, $startLength) == 0) {
+            if (!empty($string) && strncmp($string, $token, $startLength) == 0) {
                 return true;
             }
         }
